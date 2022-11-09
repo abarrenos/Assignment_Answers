@@ -37,6 +37,10 @@ class CrossData
     return @@cross_data_list
   end
 
+  def CrossData.all_cross_data
+    return @@cross_data_list
+  end
+
   #Defining a method to calculate chisquared using data imported from file and returning genes linked and chisquared value  
   def CrossData.get_linked()
     

@@ -82,33 +82,40 @@ puts ''
 ## We get the crosses that provide results of linked genes.
 linked_cross_array, chi_sq_array = CrossData.get_linked()
 
-## We retrieve the Seed Stock objects involved in the cross
-linked_seeds = Array.new
-linked_seeds << seedstock_database.get_SeedStock(seedstock_id: linked_cross_array[0].parent1)
-linked_seeds << seedstock_database.get_SeedStock(seedstock_id: linked_cross_array[0].parent2)
+## We iterate the array of linked crosses and process each cross separately. Even though there is only one linked cross,
+## I decided to do this to automatize the process in the event of introducing new linked crosses in the table.
+linked_cross_array.each {|linked_cross|
 
-## Finally, we retrieve the genes filtering by their ids, and we return the gene names
-linked_genes = Array.new
-linked_seeds.each do |seed| 
-    linked_genes << Genes.get_Gene(gene_id: seed.mutant_gene_id)
-end
+    ## We retrieve the Seed Stock objects involved in the cross
+    linked_seed1 = seedstock_database.get_SeedStock(seedstock_id: linked_cross.parent1)
+    linked_seed2 = seedstock_database.get_SeedStock(seedstock_id: linked_cross.parent2)
 
-# Printing genes genetically linked
-puts "Recording: #{linked_genes[0].gene_name} is genetically linked to #{linked_genes[1].gene_name} with a Chi square value of #{chi_sq_array[0].round(2)} (p < 0.05)"
-sleep 1
-puts ""
+    ## We retrieve the genes filtering by their ids, and we return the gene names
+    linked_gene1 = Genes.get_Gene(gene_id: linked_seed1.mutant_gene_id)
+    linked_gene2 = Genes.get_Gene(gene_id: linked_seed2.mutant_gene_id)
+
+    # Store linkage data in instance variables
+    linked_gene1.linkage = linked_gene2
+    linked_gene2.linkage = linked_gene1
+
+    # Printing linked genes
+    puts "Recording: #{linked_gene1.gene_name} is genetically linked to #{linked_gene2.gene_name} with a Chi square value of #{chi_sq_array[0].round(2)} (p < 0.05)"
+    sleep 1
+    puts ""
+}
 puts ''
 sleep 1
-
-# Store linkage data in instance variables
-linked_genes[0].linkage = linked_genes[1]
-linked_genes[1].linkage = linked_genes[0]
-
 puts 'Final Report:'
 sleep 1
 puts ''
-puts "#{linked_genes[0].gene_name} is linked to #{linked_genes[0].linkage.gene_name}"
-puts "#{linked_genes[1].gene_name} is linked to #{linked_genes[1].linkage.gene_name}"
+
+# Print final report of genes with linkage
+Genes.all_genes.each do |gene|
+    if gene.linkage.instance_of?(Genes) then
+        puts "#{gene.gene_name} is linked to #{gene.linkage.gene_name}"
+    end
+end
+
 sleep 1
 puts ''
 puts ''
