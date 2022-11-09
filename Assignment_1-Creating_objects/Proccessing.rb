@@ -68,7 +68,10 @@ sleep 1
 # Accessing to grams remaind of each kind of seed and simulating planting 7 grams
 puts 'Seeds have been planted. The current status of genebank is:'
 puts ''
+
+# Printing the new table on the terminal.
 print planted_table
+
 # The output is a table where the grams of seed remains and the last date of plant is contained
 sleep 1
 puts ''
