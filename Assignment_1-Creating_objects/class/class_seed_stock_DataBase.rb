@@ -1,21 +1,24 @@
+#Importing required library and class
 require_relative './class_seed_stock.rb'
 require 'csv'
 
 class StockDB
-
+#Defining atribute accessors
   attr_accessor :table
   attr_accessor :headers
   attr_accessor :filepath
   attr_accessor :seed_stock_data
   
+  #Defining initializer
   def initialize()
   end
 
+  #Defining a method to import data from file
   def load_from_file(filepath:)
     unless File.file?(filepath)
       return ("File #{filepath} doesn't exist")
     else
-      @table = CSV.read(File.open(filepath), headers: true, col_sep: "\t") # Importing stockfile as table
+      @table = CSV.read(File.open(filepath), headers: true, col_sep: "\t")    # Importing stockfile as table
       @filepath = filepath          # Seed_stock_data.tsv path
       @seed_stock_data = Array.new  ## Empty array created to append gene objects.
       @headers = @table.headers
@@ -30,13 +33,14 @@ class StockDB
     end 
   end
 
-  def get_SeedStock(id:)
-    seed_stock = @seed_stock_data.select{|stock| stock.mutant_gene_id == id.to_s}
+  def get_SeedStock(seedstock_id:)
+    seed_stock = @seed_stock_data.select{|stock| stock.seed_stock == seedstock_id.to_s}
     return seed_stock[0]
   end
 
   def plant_seeds(grams:)
-    @table.each do |row|                      # Iterating over each row
+    @table.each do |row|  # Iterating over each row
+      row[2]=Time.now.strftime("%d/%m/%Y" )   #Uptading time                   
       row[4] = (row[4].to_i - grams.to_i)     # Substraction from Grams_Remaining
       if row[4] <= 0                          # return error message if value equal or < 0
         row[4] = 0
@@ -44,6 +48,7 @@ class StockDB
       end
     end
     return @table
+
   end
 
 #Creating file to save new data after planting
@@ -58,16 +63,5 @@ class StockDB
     end
   end
 
-'''
-  seed_stock_db = StockDB.new
-  seed_stock_db.load_from_file(filepath: "./files/seed_stock_data.tsv")
-
-  print seed_stock_db.get_SeedStock(id: "AT1G30950")
-  print ''
-  print ''
-
-  print seed_stock_db.plant_seeds(grams: 9)
-  seed_stock_db.new_database(new_db: "./files/output.tsv")
-'''
 end
 
