@@ -6,6 +6,13 @@
 
 Intensive Integration is a computer program designed in ruby to searching for interactions between genes and creating a gene interaction newtork wich maximum depth is 4. In addition, the program will search for GO and KEGG annotation of these genes and it will be saved both interaction network and annotations into a file.
 
+###  Collaborative approach
+For this assignment, all the members of our group collaborated on an Interaction Network approach based on Ruby Graph Library (RGL) gem facilities, you will find a detailed description of the method below. The final outcome of this script can be seen in [collaborative_approach/documents/final_report_0.55.txt](./collaborative_approach/documents/final_report_0.55.txt).
+
+### Individual approach
+I personally worked on a second approach to build Interaction Networks using recursive functions. The differential element of this approach is the InteractionNetwork class, since the rest of the classes are adapted from the collaborative approach code. The final outcome of this script can be seen in [individual_approach/documents/Interaction_report.txt](./individual_approach/documents/Interaction_report.txt).
+
+
 ## Our code:
 
 The problem of finding network modules applies to biological networks as much as any other. Modules in protein interaction networks represent a group of functionally related proteins, interacting with eachother through spacial or biological dependancy. The main problem with the so called interactome comes from how protein-protein interactions are found -biology. This problem is twofold, firstly, there is a large bias to test popular proteins for p-p interactions, such as known oncogen p52. This bias creates a scale free network of degree distribution highly skewed compared to what the real interactome might be in reality (but who knows for sure!). The second problem is the quality of p-p interactions, so called promiscuous proteins such as MHC have a tendency to interact with almost anyone due to their structure. 
