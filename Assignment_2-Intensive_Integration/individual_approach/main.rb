@@ -79,8 +79,8 @@ outfile = File.new(ARGV[1], "w+")   # Create output file
 
 outfile.write("#####################################\n")
 outfile.write("Final Report:\n")
-outfile.write("A total number of #{InteractionNetwork.get_all_networks.length.to_s} protein-protein Interaction Networks have been identified where input genes are involved, with a min. quality IntactMiscore > 0.3 and max. depth = 3.")
-outfile.write("#{output_interactions.length.to_s} interactions have been identified between different some of the #{gene_list.length.to_s} genes of the list:")
+outfile.write("A total number of #{InteractionNetwork.get_all_networks.length.to_s} protein-protein Interaction Networks have been identified where input genes are involved, with a min. quality IntactMiscore > 0.3 and max. depth = 3.\n")
+outfile.write("After filtering, a total number of #{output_interactions.length.to_s} interactions have been identified between some of the #{gene_list.length.to_s} genes of the list:")
 
 output_interactions.each { |inlist_interactors|
 

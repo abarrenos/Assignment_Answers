@@ -1,6 +1,7 @@
 #####################################
 Final Report:
-A total number of 168 protein-protein Interaction Networks have been identified where input genes are involved, with a min. quality IntactMiscore > 0.3 and max. depth = 3.3 interactions have been identified between different some of the 168 genes of the list:
+A total number of 168 protein-protein Interaction Networks have been identified where input genes are involved, with a min. quality IntactMiscore > 0.3 and max. depth = 3.
+After filtering, a total number of 3 interactions have been identified between some of the 168 genes of the list:
 
 /-----------------------------------------------/
 
