@@ -34,7 +34,7 @@ arabidopsis_db_path =  ARGV[0]
 spombe_db_path =  ARGV[1]
 
 # Create a BLAST factory for each species
-#system("makeblastdb -in files/TAIR10_cds_20101214_updated.fa -dbtype 'prot' -out databases/TAIR 2> /dev/null")
+#system("makeblastdb -in files/TAIR10_cds_20101214_updated.fa -dbtype 'nucl' -out databases/TAIR 2> /dev/null")
 #system("makeblastdb -in files/pep.fa -dbtype 'prot' -out databases/spombe 2> /dev/null")
 arabidopsis_factory = Bio::Blast.local('tblastn', arabidopsis_db_path, "-F T")  # protein query nucleic database
 spombe_factory = Bio::Blast.local('blastx', spombe_db_path, "-F T")             # nucleic query protein database
